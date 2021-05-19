@@ -1,6 +1,6 @@
 FROM node:14
-WORKDIR /weather-app
-COPY package.json /weather-app/
+WORKDIR /app
+COPY package.json /app/
 RUN npm install
 RUN npm ci
 COPY . /app
