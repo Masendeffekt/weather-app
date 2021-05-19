@@ -5,5 +5,7 @@ RUN npm install
 RUN npm ci
 COPY . /app
 EXPOSE 3000
+ENV NODE_ENV production
+ENTRYPOINT [ "npm", "start" ]
 CMD [ "node", "server.js" ]
 #USER node
