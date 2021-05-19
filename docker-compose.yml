@@ -4,8 +4,9 @@ services:
     build:
       context: ./
     volumes:
-      - .:/app
+      - .:/weather-app
     command: npm start
+  
     ports:
       - "3000:3000" 
     environment:
