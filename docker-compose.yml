@@ -1,4 +1,7 @@
 version: '3'
+networks:
+  traefik-global-proxy:
+     external: true  
 services:
   traefik:
     image: "traefik:v2.2"
@@ -49,7 +52,3 @@ services:
     command: npm start
     ports:
       - "3000:3000"
-
-networks:
-   traefik-global-proxy:
-      external: true  
