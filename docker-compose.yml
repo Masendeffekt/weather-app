@@ -26,7 +26,7 @@ services:
     container_name: "whoami-final"
     labels:
       - "traefik.enable: true"
-      - "traefik.http.routers.whoami.rule: Host(`whoami.docker.localhost`)"
+      - "traefik.http.routers.whoami.rule: Host(`vargabalazs.syscops.com`)"
       - "traefik.http.routers.whoami.entrypoints: web"
       - "traefik.http.services.whoami.loadbalancer.server.port: 3000"      
   web:
