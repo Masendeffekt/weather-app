@@ -42,7 +42,6 @@ services:
       - "traefik.http.routers.simple-fe.tls.certresolver=letsencrypt"
     build:
       context: ./
-      target: dev
     volumes:
       - .:/app
     command: npm start
