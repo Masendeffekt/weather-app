@@ -34,7 +34,7 @@ services:
       - traefik-global-proxy
     labels: 
       - "traefik.enable=true"
-      - "traefik.backend=webserver"
+      - "traefik.backend=traefik"
       - "traefik.frontend.rule=Host:vargabalazs.syscops.com"
       - "traefik.http.routers.simple-fe.rule=Host(`vargabalazs.syscops.com`)" # domain to expose on
       - "traefik.http.routers.simple-fe.entrypoints=websecure"
