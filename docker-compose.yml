@@ -1,12 +1,58 @@
-version: '2'
+version: '3'
 services:
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik"
+    command: 
+      - --web
+      - --docker
+      - --docker.domain=docker.localhost
+      - --api.insecure=true 
+      # Docker
+      - --providers.docker 
+      - --providers.docker.exposedByDefault=true
+      - --entrypoints.web.address=:80
+    networks:
+      - traefik-global-proxy
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - "./traefik.toml:/etc/traefik/traefik.toml"
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  whoami:
+    image: containous/whoami:v1.5.0
+    command:
+      # It tells whoami to start listening on 3000 instead of 80
+      - --port=3000
+      labels:
+      traefik.enable: true
+    
+      traefik.http.routers.whoami.rule: Host(`whoami.docker.localhost`)
+      traefik.http.routers.whoami.entrypoints: web
+      traefik.http.services.whoami.loadbalancer.server.port: 3000      
   web:
+    container_name: weather_final
+    networks:
+      -traefik-global-proxy
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.backend=webserver"
+      - "traefik.frontend.rule=Host:vargabalazs.syscops.com"
+      - "traefik.http.routers.simple-fe.rule=Host(`vargabalazs.syscops.com`)" # domain to expose on
+      - "traefik.http.routers.simple-fe.entrypoints=websecure"
+      - "traefik.http.routers.simple-fe.tls.certresolver=letsencrypt"
     build:
       context: ./
+      target: development
     volumes:
       - .:/app
     command: npm start
     ports:
-      - "80:80" 
-    environment:
-      NODE_ENV: dev 
+      - "80:80"
+    lavels:
+
+networks:
+   traefik-global-proxy:
+      external: true  
