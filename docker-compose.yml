@@ -7,10 +7,12 @@ services:
       - --web
       - --docker
       - --docker.domain=docker.localhost
+      - --providers.docker=true
       - --api.insecure=true 
       # Docker
       - --providers.docker 
       - --entrypoints.web.address=:80
+      - --entrypoints.web-secure.address=:443
       - --docker.exposedbydefault=false
     networks:
       - traefik-global-proxy
@@ -35,6 +37,7 @@ services:
     labels: 
       - "traefik.enable=true"
       - "traefik.backend=traefik"
+      - "traefik.port=3000"
       - "traefik.frontend.rule=Host:vargabalazs.syscops.com"
       - "traefik.http.routers.simple-fe.rule=Host(`vargabalazs.syscops.com`)" # domain to expose on
       - "traefik.http.routers.simple-fe.entrypoints=websecure"
