@@ -10,8 +10,8 @@ services:
       - --api.insecure=true 
       # Docker
       - --providers.docker 
-      - --providers.docker.exposedByDefault=true
       - --entrypoints.web.address=:80
+      - --docker.exposedbydefault=false
     networks:
       - traefik-global-proxy
     ports:
