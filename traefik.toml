@@ -6,6 +6,12 @@ entryPoint = "https"
 address = ":443"
 [entryPoints.https.tls]
 
+[http.routers]
+  [http.routers.Router-1]
+    # By default, routers listen to every entry points
+    rule = "Host(`http://vargabalazs.syscops.com/`)"
+    service = "web"
+
 [docker]
 endpoint = "unix:///var/run/docker.sock"
 domain = "vargabalazs.syscops.com"
