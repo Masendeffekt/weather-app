@@ -1,15 +1,22 @@
-[entryPoints]
-  [entryPoints.web]
-    address = ":80"
+[entryPoints.http]
+address = ":80"
+[entryPoints.http.redirect]
+entryPoint = "https"
+[entryPoints.https]
+address = ":443"
+[entryPoints.https.tls]
 
-  [entryPoints.web.http.redirections.entryPoint]
-    to = "websecure"
-    scheme = "https"
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "vargabalazs.syscops.com"
+watch = true
+exposedbydefault = false
+network="traefik-global-proxy"
 
-  [entryPoints.websecure]
-    address = ":443"
-    
-certificatesResolvers.letsencrypt.acme]
-  email = "yourmail@domain.com"
-  storage = "/letsencrypt/acme.json"
-  [certificatesResolvers.letsencrypt.acme.tlsChallenge]
+[acme]
+email = "vargabalazs0202@gmail.com.com"
+storage = "acme.json"
+entryPoint = "https"
+OnHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
