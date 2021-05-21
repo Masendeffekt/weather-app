@@ -22,16 +22,13 @@ services:
       - "./letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
   whoami:
-    image: containous/whoami:v1.5.0
-    command:
-      # It tells whoami to start listening on 3000 instead of 80
-      - --port=3000
-      labels:
-      traefik.enable: true
-    
-      traefik.http.routers.whoami.rule: Host(`whoami.docker.localhost`)
-      traefik.http.routers.whoami.entrypoints: web
-      traefik.http.services.whoami.loadbalancer.server.port: 3000      
+    image: "traefik/whoami"
+    container_name: "whoami-final"
+    labels:
+      - "traefik.enable: true"
+      - "traefik.http.routers.whoami.rule: Host(`whoami.docker.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints: web"
+      - "traefik.http.services.whoami.loadbalancer.server.port: 3000"      
   web:
     container_name: weather_final
     networks:
