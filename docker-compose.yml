@@ -48,7 +48,6 @@ services:
     command: npm start
     ports:
       - "80:80"
-    lavels:
 
 networks:
    traefik-global-proxy:
