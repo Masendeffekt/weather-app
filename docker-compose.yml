@@ -32,7 +32,7 @@ services:
   web:
     container_name: weather_final
     networks:
-      -traefik-global-proxy
+      - traefik-global-proxy
     labels: 
       - "traefik.enable=true"
       - "traefik.backend=webserver"
