@@ -2,7 +2,7 @@ version: '3'
 services:
   traefik:
     image: "traefik:v2.2"
-    container_name: "traefik"
+    container_name: "traefik-final"
     command: 
       - --web
       - --docker
@@ -30,7 +30,7 @@ services:
       - "traefik.http.routers.whoami.entrypoints: web"
       - "traefik.http.services.whoami.loadbalancer.server.port: 3000"      
   web:
-    container_name: weather_final
+    container_name: weather-final
     networks:
       - traefik-global-proxy
     labels: 
